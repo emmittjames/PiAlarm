@@ -1,16 +1,19 @@
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI
 import asyncio
 import smtplib
 from email.mime.text import MIMEText
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
 
-# Email configuration
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SMTP_USERNAME = "your-email@gmail.com"  # Replace with your email
-SMTP_PASSWORD = "your-password"        # Replace with your email password or app-specific password
-RECIPIENT_EMAIL = "emmittjames1@gmail.com"  # Replace with the recipient"s email
+
+load_dotenv()
+SMTP_USERNAME = os.getenv("SMTP_USERNAME")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
 
 TIMER_DURATION = 600
 timer_task = None
