@@ -4,6 +4,7 @@ import smtplib
 from email.mime.text import MIMEText
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 app = FastAPI()
 
@@ -35,6 +36,7 @@ async def send_email():
         print(f"Failed to send email: {e}")
 
 async def timer():
+    print(f"Timer started at: {datetime.now()}")
     await asyncio.sleep(TIMER_DURATION)
     await send_email()
 
@@ -42,7 +44,6 @@ async def timer():
 async def start_timer():
     global timer_task
     timer_task = asyncio.create_task(timer())
-    print("Timer started.")
 
 @app.post("/reset-timer")
 async def reset_timer():
@@ -51,5 +52,5 @@ async def reset_timer():
         timer_task.cancel()
         print("Timer canceled")
     timer_task = asyncio.create_task(timer())
-    print("Timer reset and started again")
-    return {"message": "Timer reset and started again"}
+    print("Timer started again")
+    return {"message": "Timer has been reset"}
