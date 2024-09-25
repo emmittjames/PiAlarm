@@ -1,0 +1,1 @@
+cron job: `*/5 * * * * curl -X POST https://pialarm.onrender.com/reset-timer`
